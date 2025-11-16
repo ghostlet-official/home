@@ -26,7 +26,7 @@ button{background:var(--glow);border:none;color:#fff;padding:8px 12px;border-rad
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
+<script src="/firebase.js"></script>
 </head>
 <body>
   <div class="topbar"><a class="brand" href="index.html">Ghostlet</a><div><button onclick="location.href='market.html'">Market</button><button onclick="location.href='stats.html'">Stats</button></div></div>
@@ -50,28 +50,15 @@ function escapeHtml(s){ return String(s||'').replaceAll('&','&amp;').replaceAll(
 
 auth.onAuthStateChanged(async user=>{
   if(!user) return location.href='login.html';
-  // Listen for chat messages
   db.collection('chat').orderBy('timestamp','asc').limit(400).onSnapshot(snap=>{
     chatBox.innerHTML = '';
     snap.forEach(doc=>{
       const m = doc.data();
-      const el = makeMessageElement(m);
-      chatBox.appendChild(el);
+      chatBox.appendChild(makeMessageElement(m));
     });
     chatBox.scrollTop = chatBox.scrollHeight;
   });
 });
-
-// getBadge: lookup from user badges or a small map
-function getBadgeFromUser(userObj){
-  if(!userObj) return null;
-  const badges = userObj.badges || [];
-  if(badges.includes('OWNER')) return 'OWNER';
-  if(badges.includes('ADMIN')) return 'ADMIN';
-  if(badges.includes('MOD')) return 'MOD';
-  if(badges.includes('VIP')) return 'VIP';
-  return null;
-}
 
 function makeMessageElement(m){
   const wrap = document.createElement('div'); wrap.className='msg';
@@ -94,7 +81,6 @@ function makeMessageElement(m){
   return wrap;
 }
 
-// Send message
 sendBtn.addEventListener('click', sendMessage);
 input.addEventListener('keypress', e=> { if(e.key==='Enter') sendMessage(); });
 
@@ -104,7 +90,6 @@ async function sendMessage(){
   const user = auth.currentUser;
   if(!user) return alert('Login to send messages');
   sendBtn.disabled = true;
-  // Grab user's profile info from users/{uid}
   const uref = db.collection('users').doc(user.uid);
   const snap = await uref.get();
   const ud = snap.exists ? snap.data() : {};
@@ -117,7 +102,6 @@ async function sendMessage(){
   };
   try{
     await db.collection('chat').add(payload);
-    // increment messagesSent on user's doc
     uref.update({ messagesSent: firebase.firestore.FieldValue.increment(1) }).catch(()=>{});
     input.value='';
   }catch(e){ console.error(e); alert('Failed to send'); }
