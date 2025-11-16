@@ -1,1 +1,1 @@
-# ghostlet.github.io
+Game will be out soon!
