@@ -1,1 +1,76 @@
-<!-- settings.html content will go here -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Ghostlet — Settings</title>
+<style>
+:root{--glow:#ff6aff} body{margin:0;font-family:Segoe UI,Arial;background:linear-gradient(180deg,#0d0d1a,#1a1a2e);color:#eee}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#242444;box-shadow:0 0 12px var(--glow);border-bottom:2px solid var(--glow)}
+.brand{color:var(--glow);font-weight:800;text-decoration:none}
+.container{max-width:800px;margin:12px auto;padding:0 18px}
+.card{background:#2b2b44;padding:18px;border-radius:12px;margin-top:12px}
+input{padding:8px;border-radius:8px;border:2px solid #333;background:#111;color:#fff;width:100%}
+.btn{background:var(--glow);border:none;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer}
+.small{color:#aaa}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBLPQtq39tEcha66rw_ovWa5-I3Nl1qyos",
+  authDomain: "ghostlet-98357.firebaseapp.com",
+  projectId: "ghostlet-98357",
+  storageBucket: "ghostlet-98357.appspot.com",
+  messagingSenderId: "843012219969",
+  appId: "1:843012219969:web:9e3037578726debf2212c0"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+</script>
+  
+</head>
+<body>
+<div class="topbar"><a class="brand" href="index.html">Ghostlet</a><div><button onclick="location.href='market.html'">Market</button></div></div>
+<div class="container">
+  <h1 style="color:var(--glow)">Settings</h1>
+  <div class="card">
+    <label>Display name</label><br>
+    <input id="username" placeholder="Your display name"><br>
+    <label style="margin-top:8px">Profile picture URL</label><br>
+    <input id="profilePic" placeholder="https://example.com/image.png"><br>
+    <button id="saveBtn" class="btn">Save</button>
+    <div class="small" style="margin-top:8px">Your name and picture are saved to your account.</div>
+  </div>
+</div>
+
+<script>
+const auth = Ghostlet.auth();
+const db = Ghostlet.db();
+auth.onAuthStateChanged(user=>{
+  if(!user) return location.href='login.html';
+  const r = db.collection('users').doc(user.uid);
+  r.get().then(snap=>{
+    if(!snap.exists) return;
+    const d = snap.data();
+    document.getElementById('username').value = d.username || user.displayName || '';
+    document.getElementById('profilePic').value = d.profilePic || '';
+  });
+  document.getElementById('saveBtn').addEventListener('click', async ()=>{
+    const name = document.getElementById('username').value.trim();
+    const pic = document.getElementById('profilePic').value.trim();
+    if(!name) return alert('Enter a name');
+    try{
+      await db.collection('users').doc(user.uid).update({ username:name, profilePic: pic || "https://i.ibb.co/0FQG7kF/friendly-ghost.png" });
+      await user.updateProfile({ displayName: name, photoURL: pic || null });
+      alert('Saved');
+    }catch(e){ console.error(e); alert('Failed to save'); }
+  });
+});
+</script>
+</body>
+</html>
