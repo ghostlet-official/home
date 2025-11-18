@@ -1,56 +1,48 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Ghostlet — Login</title>
-<style>
-:root{--glow:#ff6aff} body{margin:0;font-family:Segoe UI,Arial;background:linear-gradient(180deg,#0d0d1a,#1a1a2e);color:#eee;display:flex;align-items:center;justify-content:center;height:100vh}
-.card{background:#2b2b44;padding:28px;border-radius:12px;max-width:420px;width:92%;box-shadow:0 8px 40px rgba(0,0,0,0.6)}
-input{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:2px solid #333;background:#111;color:#fff}
-.btn{background:var(--glow);border:none;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer;margin-top:12px;font-weight:700;width:100%}
-.small{color:#aaa;margin-top:8px;text-align:center}
-</style>
+  <meta charset="utf-8" />
+  <title>Ghostlet — Login</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://bjgxufxgpgojkwqbdyqp.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqZ3h1ZnhncGdvamt3cWJkeXFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzOTk1NjMsImV4cCI6MjA3ODk3NTU2M30.BRyjh8E2WK1KTquDhzfBtAmcBuxhZ4jRsZQgN_5s9rg";
+    window.supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  </script>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBLPQtq39tEcha66rw_ovWa5-I3Nl1qyos",
-  authDomain: "ghostlet-98357.firebaseapp.com",
-  projectId: "ghostlet-98357",
-  storageBucket: "ghostlet-98357.firebasestorage.app",
-  messagingSenderId: "843012219969",
-  appId: "1:843012219969:web:9e3037578726debf2212c0"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-</script>
+  <style>
+    html,body{height:100%;margin:0;padding:0;background:#050505;color:#fff;font-family:Segoe UI,Arial}
+    .center{max-width:720px;margin:48px auto;text-align:center;padding:28px;background:#0e0e0e;border-radius:18px;box-shadow:0 0 40px rgba(0,255,255,0.06)}
+    h1{color:#00fef0;margin-bottom:6px}
+    input{width:90%;padding:12px;border-radius:10px;border:none;background:#222;color:#fff;margin:8px 0}
+    button{background:#00fef0;border:none;color:#000;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700;width:92%}
+    a{color:#00fef0}
+  </style>
 </head>
 <body>
-  <div class="card">
-    <h2 style="color:var(--glow);margin:0 0 6px 0">Sign in to Ghostlet</h2>
+  <div class="center">
+    <h1>Ghostlet — Login</h1>
     <input id="email" placeholder="Email" type="email" />
     <input id="password" placeholder="Password" type="password" />
-    <button id="loginBtn" class="btn">Login</button>
-    <div class="small">No account? <a style="color:var(--glow)" href="register.html">Register</a></div>
+    <button id="loginBtn">Log in</button>
+    <p style="margin-top:12px">No account? <a href="register.html">Register</a></p>
+    <p id="msg" style="color:#ff8080"></p>
   </div>
 
-<script>
-const auth = Ghostlet.auth();
-document.getElementById('loginBtn').addEventListener('click', async ()=>{
-  const email = document.getElementById('email').value.trim();
-  const pass = document.getElementById('password').value;
-  if(!email || !pass) return alert('Fill both fields');
-  try{
-    await auth.signInWithEmailAndPassword(email, pass);
-    location.href = 'index.html';
-  }catch(err){
-    console.error(err);
-    alert('Login failed: ' + (err.message || err));
-  }
-});
-</script>
+  <script>
+    const msg = document.getElementById('msg');
+    document.getElementById('loginBtn').onclick = async () => {
+      msg.textContent = '';
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      if (!email || !password) { msg.textContent = 'Enter email and password.'; return; }
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) { msg.textContent = 'Login failed: ' + error.message; return; }
+      // success -> redirect
+      location.href = 'index.html';
+    };
+  </script>
 </body>
 </html>
