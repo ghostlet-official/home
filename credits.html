@@ -4,30 +4,74 @@
 <meta charset="utf-8" />
 <title>Ghostlet — Credits</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://bjgxufxgpgojkwqbdyqp.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqZ3h1ZnhncGdvamt3cWJkeXFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzOTk1NjMsImV4cCI6MjA3ODk3NTU2M30.BRyjh8E2WK1KTquDhzfBtAmcBuxhZ4jRsZQgN_5s9rg";
+  window.supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+</script>
 
-  <style>
-  html,body{margin:0;padding:0;overflow-x:hidden;background:#050505;color:#fff;font-family:Segoe UI,Arial}
-  .topbar{width:100%;background:#070707;padding:12px 20px;border-bottom:3px solid #00fef0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-  .topbar-left{color:#00fef0;font-weight:800;font-size:20px}
-  .page-container{max-width:900px;margin:24px auto;padding:20px;width:calc(100% - 40px)}
-  .panel{background:#0e0e0e;padding:18px;border-radius:12px}
-  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px}
-  .stat-card{background:#111;padding:14px;border-radius:10px;text-align:center}
-  .label{color:#bbb;font-weight:700}
-  .value{color:#00fef0;font-weight:900;font-size:1.4rem;margin-top:6px}
+<style>
+  html, body { margin:0; padding:0; overflow-x:hidden; background:#050505; color:#fff; font-family:Segoe UI,Arial; }
+  .page-container { max-width:1000px; margin:24px auto; padding:20px; width:calc(100% - 40px); }
+  .title { font-size:3rem; font-weight:800; color:#00fef0; text-align:center; margin-bottom:32px; }
+  .credits-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px; }
+  .credit-card { background:#0e0e0e; border-radius:16px; overflow:hidden; transition: transform 0.2s; }
+  .credit-card:hover { transform:scale(1.03); }
+  .pfp { width:100%; height:240px; background:#111; background-size:cover; background-position:center; }
+  .user-info { padding:16px; }
+  .username { font-size:1.5rem; font-weight:800; color:#00fef0; margin-bottom:8px; }
+  .description { font-size:1rem; color:#bbb; line-height:1.4; }
 </style>
 </head>
 
-  <body>
-  <script>
+<body>
   <div class="page-container">
-    <div class="panel">
-        <div>
-          <div style="color:#aaa" id="uid"></div>
-        </div>
+    <div class="title">Credits</div>
+    <div class="credits-grid" id="creditsGrid">
+      <!-- User cards will be injected here -->
+    </div>
+  </div>
 
-      <div class="flex-1 overflow-auto text-white"><!----><!----><main class="flex h-full flex-col p-8"><h1 class="titan-one text-shadow-xl mb-6 text-5xl">Credits</h1> <div class="grid [grid-template-columns:repeat(auto-fit,minmax(325px,max-content))] justify-start gap-8"><a class="flex h-64 w-96 cursor-pointer flex-col items-center justify-center rounded-xl bg-green-600 p-4 text-center text-black text-white shadow-xl transition-all select-none hover:scale-95" href="/stats?user=GhostRider"><div class="mb-2 flex w-full items-center justify-center"><img class="h-16 w-16" alt="Credit" src="/avatars/legends/GhostRider.png"></div> <h2 class="titan-one text-4xl text-shadow-md">SRN</h2> <h3 class="titan-one text-2xl text-shadow-md">Owner &amp; Main Developer</h3> <p>I'm the creator of Picklet :D</p></a><a class="flex h-64 w-96 cursor-pointer flex-col items-center justify-center rounded-xl bg-green-600 p-4 text-center text-black text-white shadow-xl transition-all select-none hover:scale-95" href="/stats?user=BlooketWarriorYT"><div class="mb-2 flex w-full items-center justify-center"><img class="h-16 w-16" alt="Credit" src="/avatars/legends/blooketwarrior.gif"></div> <h2 class="titan-one text-4xl text-shadow-md">BlooketWarriorYT</h2> <h3 class="titan-one text-2xl text-shadow-md">Artist &amp; Tester</h3> <p>Helps with art on Picklet. Provided numerous packs from Foodit for use on Picklet.</p></a><a class="flex h-64 w-96 cursor-pointer flex-col items-center justify-center rounded-xl bg-green-600 p-4 text-center text-black text-white shadow-xl transition-all select-none hover:scale-95" href="/stats?user=GhostRider"><div class="mb-2 flex w-full items-center justify-center"><img class="h-16 w-16" alt="Credit" src="/avatars/legends/ghostrider.png"></div> <h2 class="titan-one text-4xl text-shadow-md">GhostRider</h2> <h3 class="titan-one text-2xl text-shadow-md">Admin</h3> <p>Helped setup Discord server and also tests the game.</p></a><a class="flex h-64 w-96 cursor-pointer flex-col items-center justify-center rounded-xl bg-green-600 p-4 text-center text-black text-white shadow-xl transition-all select-none hover:scale-95" href="/stats?user=FastyJay"><div class="mb-2 flex w-full items-center justify-center"><img class="h-16 w-16" alt="Credit" src="/avatars/legends/fastyjay.png"></div> <h2 class="titan-one text-4xl text-shadow-md">FastyJay</h2> <h3 class="titan-one text-2xl text-shadow-md">Admin</h3> <p>Admin of Picklet and a MASSIVE blooktuber</p></a><a class="flex h-64 w-96 cursor-pointer flex-col items-center justify-center rounded-xl bg-green-600 p-4 text-center text-black text-white shadow-xl transition-all select-none hover:scale-95" href="/stats?user=SOUNDGOD"><div class="mb-2 flex w-full items-center justify-center"><img class="h-16 w-16" alt="Credit" src="/avatars/legends/soundgod.gif"></div> <h2 class="titan-one text-4xl text-shadow-md">SOUNDGOD</h2> <h3 class="titan-one text-2xl text-shadow-md">Admin</h3> <p>Admin of Picklet and also is kinda known for making ploopit</p></a></div></main><!----><!----></div>
+<script>
+  async function loadCredits() {
+    // Example: fetch users from Supabase 'profiles' table
+    const { data: users, error } = await supabase.from('profiles').select('*');
+    if (error) return console.error(error);
 
-  
-    </body>
+    const grid = document.getElementById('creditsGrid');
+    grid.innerHTML = '';
+
+    users.forEach(user => {
+      const card = document.createElement('div');
+      card.className = 'credit-card';
+
+      // PFP
+      const pfp = document.createElement('div');
+      pfp.className = 'pfp';
+      pfp.style.backgroundImage = `url(${user.pfp || 'https://i.ibb.co/0FQG7kF/friendly-ghost.png'})`;
+      card.appendChild(pfp);
+
+      // Info
+      const info = document.createElement('div');
+      info.className = 'user-info';
+
+      const name = document.createElement('div');
+      name.className = 'username';
+      name.textContent = user.username || user.id;
+      info.appendChild(name);
+
+      const desc = document.createElement('div');
+      desc.className = 'description';
+      desc.textContent = user.description || 'No description available.';
+      info.appendChild(desc);
+
+      card.appendChild(info);
+      grid.appendChild(card);
+    });
+  }
+
+  loadCredits();
+</script>
+</body>
 </html>
