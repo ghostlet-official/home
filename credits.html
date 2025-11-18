@@ -12,13 +12,21 @@
     input{width:90%;padding:12px;border-radius:10px;border:none;background:#222;color:#fff;margin:8px 0}
     button{background:#00fef0;border:none;color:#000;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700;width:92%}
     a{color:#00fef0}
-    .page-container{max-width:1100px;margin:24px auto;padding:20px;width:calc(100% - 40px)}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px}
+  .stat-card{background:#111;padding:14px;border-radius:10px;text-align:center}
   </style>
-<script>
-  <div class="page-container">
-    <h1 style="color:#00fef0">Credits</h1>
-    <div id="chatBox" class="credits-box"></div>
-</script>
+
+  <script>
+  <div class="stats-grid" style="margin-top:18px">
+        <div class="stat-card"><div class="label">GhostRider</div><div class="value" id="username">The Owner of Ghostlet</div></div>
+        <div class="stat-card"><div class="label">User</div><div class="value" id="username">0</div></div>
+        <div class="stat-card"><div class="label">User</div><div class="value" id="username">0</div></div>
+        <div class="stat-card"><div class="label">User</div><div class="value" id="username">0</div></div>
+      </div>
+    </div>
+  </div>
+
+  ]
   
 </head>
 </html>
